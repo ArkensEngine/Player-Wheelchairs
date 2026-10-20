@@ -15,7 +15,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@PluginDescriptor(name="Player Wheelchairs", description="Experimental seated players with custom 3D wheelchairs", tags={"cosmetic","wheelchair","players"}, enabledByDefault=false)
+@PluginDescriptor(name="Player Wheelchairs", description="Experimental seated players with custom 3D wheelchairs", tags={"cosmetic","wheelchair","players"})
 public class WheelchairPlugin extends Plugin
 {
     private static final Logger log=LoggerFactory.getLogger(WheelchairPlugin.class);
