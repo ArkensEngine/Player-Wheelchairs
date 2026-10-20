@@ -1,0 +1,30 @@
+plugins { id 'java' }
+repositories {
+    maven { url = 'https://repo.runelite.net'; content { includeGroupByRegex('net\\.runelite.*') } }
+    mavenCentral()
+}
+group = 'com.playerwheelchairs'
+version = '0.2.3-rc1'
+def runeLiteVersion = providers.gradleProperty('runeliteVersion').getOrElse('latest.release')
+dependencies {
+    compileOnly "net.runelite:client:$runeLiteVersion"
+    testImplementation "net.runelite:client:$runeLiteVersion"
+    testImplementation "net.runelite:jshell:$runeLiteVersion"
+}
+tasks.withType(JavaCompile).configureEach { options.encoding='UTF-8'; options.release.set(11) }
+tasks.register('checkPrototype', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'com.playerwheelchairs.PrototypeChecks'
+    systemProperty 'user.home', layout.buildDirectory.dir('check-runtime').get().asFile.absolutePath
+    jvmArgs '-ea'
+    args projectDir.absolutePath
+}
+tasks.named('check') { dependsOn 'checkPrototype' }
+tasks.register('run', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'com.playerwheelchairs.PrototypeLauncher'
+    jvmArgs '-ea'
+    args '--developer-mode', '--debug'
+}
