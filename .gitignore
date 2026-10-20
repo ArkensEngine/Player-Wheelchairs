@@ -1,0 +1,13 @@
+.gradle/
+build/
+out/
+runtime/
+.runelite/
+.idea/
+*.iml
+*.log
+credentials.properties
+*.jks
+*.keystore
+.env
+.env.*
